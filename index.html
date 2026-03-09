@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="speculationrules">
+      {
+        "prerender": [
+          {
+            "urls": ["/about"],
+            "eagerness": "immediate"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+    </nav>
+    <main>
+      <h1 class="title">Home</h1>
+      <p class="content">
+        Welcome to the home page. Click "About" to see the view transition in
+        action.
+      </p>
+    </main>
+    <script src="transitions.js"></script>
+  </body>
+</html>
