@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="view-transition" content="same-origin" />
   <title>Home</title>
   <style>
     @view-transition {
@@ -143,8 +144,8 @@
       {
         "prerender": [
           {
-            "source": "list",
-            "urls": ["/about"],
+            "source": "document",
+            "where": { "href_matches": "/about" },
             "eagerness": "immediate"
           }
         ]

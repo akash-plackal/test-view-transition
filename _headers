@@ -1,0 +1,9 @@
+/*
+  Speculation-Rules: *
+  Supports-Loading-Mode: credentialed-prerender
+  Cross-Origin-Embedder-Policy: unsafe-none
+  Cross-Origin-Opener-Policy: same-origin
+  
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  Speculation-Rules: *
