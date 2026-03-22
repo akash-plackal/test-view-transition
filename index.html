@@ -2,168 +2,136 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="view-transition" content="same-origin" />
-  <title>Home</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "source": "list",
+          "urls": ["/about/"]
+        }
+      ]
+    }
+  </script>
+  <title>Test A</title>
   <style>
+    :root {
+      --bg: #141a15;
+      --surface: #1d2520;
+      --fg: #d5d9c8;
+      --muted: #a8b09b;
+      --line: #465247;
+      --link: #9fb378;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
     @view-transition {
       navigation: auto;
     }
 
+    html,
+    body {
+      background: var(--bg);
+    }
+
+    ::view-transition {
+      background: var(--bg);
+    }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      mix-blend-mode: normal;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      ::view-transition-group(*),
+      ::view-transition-old(*),
+      ::view-transition-new(*) {
+        animation: none !important;
+      }
+    }
+
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
     body {
-      font-family:
-        system-ui,
-        -apple-system,
-        sans-serif;
-      background: #0f0f0f;
-      color: #e0e0e0;
+      margin: 0;
       min-height: 100vh;
-    }
-
-    nav {
-      display: flex;
-      gap: 1.5rem;
-      padding: 1.5rem 2rem;
-      background: #1a1a1a;
-      border-bottom: 1px solid #2a2a2a;
-    }
-
-    nav a {
-      color: #a0a0a0;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: color 0.2s;
-    }
-
-    nav a:hover {
-      color: #fff;
+      color: var(--fg);
+      font: 16px/1.5 var(--font);
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
     }
 
     main {
-      padding: 4rem 2rem;
-      max-width: 600px;
-      margin: 0 auto;
+      width: min(100%, 42rem);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      padding: 2rem;
     }
 
-    .title {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      view-transition-name: title;
+    h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(2.2rem, 9vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      view-transition-name: heading;
     }
 
-    .content {
-      font-size: 1.125rem;
-      line-height: 1.6;
-      color: #999;
-      view-transition-name: content;
+    p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      max-width: 36ch;
+      font-size: 1.05rem;
     }
 
-    /* View transition animations */
-
-    /* Full page crossfade + slide */
-    ::view-transition-old(root) {
-      animation: page-out 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+    a {
+      color: var(--link);
+      text-decoration-color: var(--line);
+      text-underline-offset: 0.16em;
     }
 
-    ::view-transition-new(root) {
-      animation: page-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
-    }
-
-    /* Title: big dramatic slide + scale */
-    ::view-transition-old(title) {
-      animation: title-out 0.4s cubic-bezier(0.4, 0, 1, 1) both;
-    }
-
-    ::view-transition-new(title) {
-      animation: title-in 0.6s cubic-bezier(0, 0, 0.2, 1) 0.1s both;
-    }
-
-    /* Content: slide up from below with fade */
-    ::view-transition-old(content) {
-      animation: content-out 0.35s cubic-bezier(0.4, 0, 1, 1) both;
-    }
-
-    ::view-transition-new(content) {
-      animation: content-in 0.6s cubic-bezier(0, 0, 0.2, 1) 0.2s both;
-    }
-
-    @keyframes page-out {
+    @keyframes heading-out {
       to {
         opacity: 0;
-        transform: scale(0.95);
-        filter: blur(4px);
+        transform: translateY(-1rem) scale(0.96);
       }
     }
 
-    @keyframes page-in {
+    @keyframes heading-in {
       from {
         opacity: 0;
-        transform: scale(1.05);
-        filter: blur(4px);
+        transform: translateY(1rem) scale(0.96);
       }
-    }
 
-    @keyframes title-out {
       to {
-        opacity: 0;
-        transform: translateX(-80px) scale(0.9);
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
     }
 
-    @keyframes title-in {
-      from {
-        opacity: 0;
-        transform: translateX(80px) scale(0.9);
-      }
+    ::view-transition-old(heading) {
+      animation: heading-out 220ms ease both;
+      mix-blend-mode: normal;
     }
 
-    @keyframes content-out {
-      to {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-    }
-
-    @keyframes content-in {
-      from {
-        opacity: 0;
-        transform: translateY(60px);
-      }
+    ::view-transition-new(heading) {
+      animation: heading-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      mix-blend-mode: normal;
     }
   </style>
-  <script type="speculationrules">
-      {
-        "prerender": [
-          {
-            "source": "document",
-            "where": { "href_matches": "/about" },
-            "eagerness": "immediate"
-          }
-        ]
-      }
-    </script>
 </head>
 
 <body>
-  <nav>
-    <a href="/">Home</a>
-    <a href="about/">About</a>
-  </nav>
   <main>
-    <h1 class="title">Home</h1>
-    <p class="content">
-      Welcome to the home page. Click "About" to see the view transition in
-      action.
-    </p>
+    <p>Minimal prerender + cross-document view transition test.</p>
+    <h1>Page A</h1>
+    <p><a href="/about/">Go to Page B</a></p>
   </main>
 </body>
 
